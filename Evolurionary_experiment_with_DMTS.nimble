@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "Yamato"
-description   = "A Repository for a paper named ``Evolution of metamemory based on self-reference to own memory in artificial neural network with neuromodulation''"
+description   = "A Repository for a paper: ``Evolution of metamemory based on self-reference to own memory in artificial neural network with neuromodulation''."
 license       = "MIT"
 
 srcDir        = "src"
@@ -13,4 +13,4 @@ backend       = "c"
 
 # Dependencies
 
-requires "nim <= 1.0.6"
+requires "nim == 1.0.6"
