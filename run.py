@@ -4,9 +4,8 @@ import subprocess
 args = sys.argv
 
 if args[1] == "-a":
-    #for i in range(0, int(args[3])):
-    #    cmd = ["time", "bin/main", args[2]+str(i), "-a:true"]
-        cmd = ["time", "bin/main", args[2], "-a:true"]
+    for i in range(0, int(args[3])):
+        cmd = ["time", "bin/main", args[2]+str(i), "-a:true"]
 
         subprocess.run(cmd)
 elif args[1] == "-ia":
