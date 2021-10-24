@@ -55,7 +55,7 @@ proc initInfomation*(): Infomation =
 proc evalation*(score: AnalysisScore, agent: Agent, taskmode: TaskMode = Experiment): void =
   score.fitness = agent.fitness
 
-  if taskmode == Experiment:
+  if taskmode == Experiment or taskmode == ScoreAnalysis:
     let k = (T_SIZE / 3) * 2
 
     score.dr = agent.score["indDEC"] / k

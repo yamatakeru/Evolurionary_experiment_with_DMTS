@@ -25,8 +25,8 @@ proc initNeuralnetwork*(genotype: Genotype): Neuralnetwork =
     pheno_weights = genotype.weights
     pheno_params = genotype.params
 
-  for i in genotype.n_size.bounds():
-    for j in (INPUTS+genotype.n_size).bounds():
+  for i in 0..<genotype.n_size:
+    for j in 0..<(INPUTS+genotype.n_size):
       pheno_weights[i][j] = pow(pheno_weights[i][j], 3.0) * 10.0
       if abs(pheno_weights[i][j]) < 0.1:
         pheno_weights[i][j] = 0.0
@@ -56,7 +56,7 @@ proc getStatus*(self: Neuralnetwork): tuple =
   return status
 
 
-proc updateWeights(neuralnetwork: Neuralnetwork, inputs: seq[float], outs: seq[float], mouts: seq[float], second_oder_mod: bool = false): void =
+proc updateWeights(neuralnetwork: Neuralnetwork, inputs: seq[float], outs: seq[float], mouts: seq[float], mod_conn_is_modulated: bool = false): void =
   let
     eta = neuralnetwork.params["eta"]
     #eps = neuralnetwork.params["eps"]
@@ -67,19 +67,19 @@ proc updateWeights(neuralnetwork: Neuralnetwork, inputs: seq[float], outs: seq[f
     #avg_activate = mean(outs.map(proc(x: float): float = abs(x)))
   var
     k: int
-    weights_temp = neuralnetwork.weights
+    weights_temp = neuralnetwork.origin_weights
 
-  for i in neuralnetwork.n_size.bounds():
-    for j in (INPUTS+neuralnetwork.n_size).bounds():
+  for i in 0..<neuralnetwork.n_size:
+    for j in 0..<(INPUTS+neuralnetwork.n_size):
       if weights_temp[i][j] != 0.0:
         if j < INPUTS:
           #neuralnetwork.weights[i][j] += LEANING_RATE * mouts[i] * (eta * (A * inputs[j] * outs[i] + B * inputs[j] + C * outs[i] + D) - (eps * avg_activate * weights_temp[i][j]))
-          neuralnetwork.weights[i][j]+= mouts[i] * eta * (A * inputs[j] * outs[i] + B * inputs[j] + C * outs[i] + D)
+          neuralnetwork.weights[i][j] += mouts[i] * eta * (A * inputs[j] * outs[i] + B * inputs[j] + C * outs[i] + D)
           #neuralnetwork.weights[i][j] = neuralnetwork.origin_weights[i][j] + mouts[i] * eta * (A * inputs[j] * outs[i] + B * inputs[j] + C * outs[i] + D)
 
           #neuralnetwork.weights[i][j]+= 0 * eta * (A * inputs[j] * outs[i] + B * inputs[j] + C * outs[i] + D)
         else:
-          if second_oder_mod:
+          if mod_conn_is_modulated:
             if (not neuralnetwork.mod_id[INPUTS+i]) and neuralnetwork.mod_id[j]:
               continue
           else:
@@ -92,7 +92,7 @@ proc updateWeights(neuralnetwork: Neuralnetwork, inputs: seq[float], outs: seq[f
 
           #neuralnetwork.weights[i][j] += 0 * eta * (A * outs[k] * outs[i] + B * outs[k] + C * outs[i] + D)
 
-        if abs(neuralnetwork.weights[i][j]) > 10.0:
+        if abs(neuralnetwork.weights[i][j]) > MAX_W:
           neuralnetwork.weights[i][j] = MAX_W * sgn(neuralnetwork.weights[i][j]).float
 
     #if max(abs(max(neuralnetwork.weights[i])), abs(min(neuralnetwork.weights[i]))) > 11.0:#MAX_W:
@@ -102,19 +102,16 @@ proc updateWeights(neuralnetwork: Neuralnetwork, inputs: seq[float], outs: seq[f
 
 
 proc caluclation*(neuralnetwork: Neuralnetwork, inputs: seq[float]): tuple =
-  neuralnetwork.inputs = inputs.mapIt((it + normGauss(0.0, 0.1)).clip(-1.0, 1.0))
+  neuralnetwork.inputs = inputs.mapIt((it + normGauss(0.0, 0.1)).clip(0.0, 1.0))
   let vector = concat(neuralnetwork.inputs, neuralnetwork.neurons)#.mapIt((it + normGauss(0.0, 0.01)).clip(-1.0, 1.0)))
-  #echo inputs
-  #echo neuralnetwork.inputs
-  #echo vector
-  #discard readLine(stdin)
+
   var
     outs = newSeq[float](neuralnetwork.n_size)
     mouts = newSeq[float](neuralnetwork.n_size)
     outputs: tuple[choice:float, answer:float]
 
-  for i in neuralnetwork.n_size.bounds():
-    for j in (INPUTS+neuralnetwork.n_size).bounds():
+  for i in 0..<neuralnetwork.n_size:
+    for j in 0..<(INPUTS+neuralnetwork.n_size):
       if neuralnetwork.mod_id[j]:
         mouts[i] += vector[j] * neuralnetwork.weights[i][j]
       else:
@@ -123,7 +120,7 @@ proc caluclation*(neuralnetwork: Neuralnetwork, inputs: seq[float]): tuple =
     mouts[i] = tanh(mouts[i]) + normGauss(0.0, 0.0001)
     outs[i] = tanh(outs[i]) + normGauss(0.0, 0.0001)
 
-  neuralnetwork.updateWeights(neuralnetwork.inputs, outs, mouts, second_oder_mod=false)
+  neuralnetwork.updateWeights(neuralnetwork.inputs, outs, mouts, mod_conn_is_modulated=false)
   neuralnetwork.neurons = outs
 
   if neuralnetwork.mod_id.count(false) - INPUTS >= 2:

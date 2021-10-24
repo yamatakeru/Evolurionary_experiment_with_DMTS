@@ -26,9 +26,9 @@ proc invdiAanalysis(savepath: string, target_num: int): void =
     let
       json_str = f.readAll().replace("nan", "-1.0")
       json_obj = json_str.parseJson()
-
+    echo 0
     target_agent.genotype[] = to[GenotypeObject] json_obj[target_num.intToStr()]["genotype"].pretty()
-
+  echo 1
   var param_temp: Table[string, float]
   for k, v in target_agent.genotype.params.pairs:
     param_temp[k] = v
@@ -44,7 +44,7 @@ proc invdiAanalysis(savepath: string, target_num: int): void =
 
     f.writeLine "{"
     f.writeLine "\"phenotype\": ", $$target_agent.neuralnetwork[] & ","
-    for i in 0..<5:
+    for i in 0..<BITS:
       f.writeLine "\"", $i, "\": {"
       let test_result = target_agent.oneShotTrial(10, i, controlexperiment=false)
       f.writeLine "\t\"result\": ", $$test_result, ","
@@ -70,7 +70,7 @@ proc analysis(savepath: string): void =
     let f: File = open(savepath & "_genotypes.json", fmRead)
     defer:
       close(f)
-      echo "file closed."
+      echo "file is closed."
 
     var idx = 0
     while not f.endOfFile:
@@ -81,8 +81,6 @@ proc analysis(savepath: string): void =
       pop[idx].genotype.params = param_temp
       pop[idx].develop()
       idx.inc()
-      if idx >= P_NUM:
-        break
 
   let
     delay: int = 50
@@ -117,8 +115,8 @@ proc analysis(savepath: string): void =
       f.writeLine "\t\t\"test_score\": {"
       for d in countup(0, delay-1, intvl):
         target_agents[idx].develop()
-        target_agents[idx].trial(defaultdelay=d+1, taskmode=Experiment)
-        analysis_info.evalation(target_agents[idx], taskmode=Experiment)
+        target_agents[idx].trial(defaultdelay=d+1, taskmode=ScoreAnalysis)
+        analysis_info.evalation(target_agents[idx], taskmode=ScoreAnalysis)
         if d == delay-intvl:
           f.writeLine "\t\t\t\"", $d, "\": ", $$analysis_info[]
         else:

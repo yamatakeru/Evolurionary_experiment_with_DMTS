@@ -80,8 +80,9 @@ proc trial*(agent: var Agent, defaultdelay: int = -1, defaulttarget: int = -1, t
   if taskmode == Experiment:
     forced = lc[(if x < FORCE_NUM: true else: false)| (x <- T_SIZE.bounds()), bool]
     hardle = lc[(if x < HARDLE_NUM: true else: false)| (x <- T_SIZE.bounds()), bool]
-    forced.shuffle()
-    hardle.shuffle()
+  elif taskmode == ScoreAnalysis:
+    forced = lc[(if x < FORCE_NUM: true else: false)| (x <- T_SIZE.bounds()), bool]
+    hardle = lc[false| (_ <- T_SIZE.bounds()), bool]
   elif taskmode == NormalAnalysis:
     forced = lc[false| (_ <- T_SIZE.bounds()), bool]
     hardle = lc[false| (_ <- T_SIZE.bounds()), bool]
@@ -91,6 +92,12 @@ proc trial*(agent: var Agent, defaultdelay: int = -1, defaulttarget: int = -1, t
 
   # task looop
   for _ in 0..<SAMPLES:
+    if taskmode == Experiment:
+      forced.shuffle()
+      hardle.shuffle()
+    elif taskmode == ScoreAnalysis:
+      forced.shuffle()
+
     for i in 0..<T_SIZE:
       let target = if defaulttarget < 0: rand(BITS-1) else: defaulttarget
       var

@@ -27,7 +27,7 @@ proc initAgent*(): Agent =
     scoretable = initTable[string, float]()
     nh = initTable[string, tuple[inputs:seq[float], neurons:seq[float], weights:seq[seq[float]]]]()
 
-  for str in @["indDEC", "indCAC", "indCAF", "indCACF", "cntHiBet", "cntConfCorrect", "cntNotConfCorrect"]:
+  for str in @["indDEC", "indCAC", "indCAF", "indCACF"]:
     scoretable[str] = 0.0
 
   let neuralnetwork = initNeuralnetwork(genotype)
@@ -39,7 +39,7 @@ proc develop*(self: Agent): void =
   self.life_time = 0
   self.neuralnetwork = initNeuralnetwork(self.genotype)
   self.fitness = 0.0
-  for str in @["indDEC", "indCAC", "indCAF", "indCACF", "cntHiBet", "cntConfCorrect", "cntNotConfCorrect"]:
+  for str in @["indDEC", "indCAC", "indCAF", "indCACF"]:
     self.score[str] = 0.0
   self.network_history = initTable[string, tuple[inputs:seq[float], neurons:seq[float], weights:seq[seq[float]]]]()
 
@@ -58,11 +58,12 @@ proc action*(self: Agent, inputs: seq[float], phase: int = -1, choice_r: bool = 
     inputs_cp: seq[float]
     outputs: tuple[choice:float, answer:float]
 
-  inputs_cp.deepcopy(inputs)
   for i in 0..<think_times:
+    inputs_cp.deepcopy(inputs)
     if choice_r and i != 0: # When current phase is Choice phase.
       for j in BIAS_AND_TEACHING..<INPUTS:
         inputs_cp[j] += 0.25
+
     outputs = self.neuralnetwork.caluclation(inputs_cp)
     #discard readLine(stdin)
 

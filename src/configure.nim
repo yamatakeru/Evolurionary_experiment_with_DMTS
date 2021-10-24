@@ -48,5 +48,6 @@ const
 
 type TaskMode* = enum
   Experiment
+  ScoreAnalysis
   NormalAnalysis
   ForceAnalysis
