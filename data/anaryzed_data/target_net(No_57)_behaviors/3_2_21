@@ -1,0 +1,99 @@
+digraph {
+	graph [label="param: A=0.21091849560044, B=-0.9475854312007884, C=-0.1384623582876872, D=0.0, eta=-28.42502024162423"]
+	node [shape=circle style=filled]
+	subgraph input {
+		rank=same
+		bias [label="bias
+1.00" fillcolor="#FFFFFF" shape=circle]
+		choice [label="c_p
+0.11" fillcolor="#FFFFFF" shape=circle]
+		bit_0 [label="bit_0
+0.00" fillcolor="#FFFFFF" shape=circle]
+		bit_1 [label="bit_1
+0.00" fillcolor="#FFFFFF" shape=circle]
+		bit_2 [label="bit_2
+0.09" fillcolor="#FFFFFF" shape=circle]
+		bit_3 [label="bit_3
+0.14" fillcolor="#FFFFFF" shape=circle]
+		bit_4 [label="bit_4
+0.00" fillcolor="#FFFFFF" shape=circle]
+	{rank=same; bias; choice; bit_0}
+	}
+	subgraph nuron {
+		rank=A
+		md_0 [label="md_0
+-1.000118308105045" fillcolor="#00FFFF" shape=circle]
+		std_0 [label="std_0
+1.000086190570166
+" fillcolor="#FFFFFF" shape=circle]
+		md_1 [label="md_1
+1.000106514941222" fillcolor="#00FFFF" shape=circle]
+		std_1 [label="std_1
+-1.000069033210982
+" fillcolor="#FFFFFF" shape=circle]
+		md_2 [label="md_2
+0.7565892511376026" fillcolor="#00FFFF" shape=circle]
+		std_2 [label="std_2
+1.000082839721189
+" fillcolor="#FFFFFF" shape=circle]
+	}
+	bias -> md_0 [label=-9.6882 arrowhead=tee color=blue fontcolor=blue penwidth=2.90646]
+	bias -> std_0 [label=10.0 arrowhead=tee color=black fontcolor=black penwidth=3.0]
+	bias -> md_1 [label=10.0 arrowhead=tee color=black fontcolor=black penwidth=3.0]
+	bias -> std_1 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	bias -> std_2 [label=10.0 arrowhead=tee color=black fontcolor=black penwidth=3.0]
+	choice -> md_0 [label=4.3169 arrowhead=tee color=black fontcolor=black penwidth=1.2950700000000002]
+	choice -> std_0 [label=-0.6126 arrowhead=tee color=blue fontcolor=blue penwidth=0.18378]
+	choice -> std_1 [label=7.0085 arrowhead=tee color=black fontcolor=black penwidth=2.10255]
+	choice -> md_2 [label=2.6545 arrowhead=tee color=black fontcolor=black penwidth=0.79635]
+	bit_0 -> std_0 [label=1.7123 arrowhead=tee color=black fontcolor=black penwidth=0.51369]
+	bit_0 -> md_1 [label=-2.4907 arrowhead=tee color=blue fontcolor=blue penwidth=0.7472099999999999]
+	bit_0 -> std_1 [label=10.0 arrowhead=tee color=black fontcolor=black penwidth=3.0]
+	bit_0 -> md_2 [label=-6.9366 arrowhead=tee color=blue fontcolor=blue penwidth=2.0809800000000003]
+	bit_1 -> std_0 [label=-0.6039 arrowhead=tee color=blue fontcolor=blue penwidth=0.18117]
+	bit_1 -> std_1 [label=-0.286 arrowhead=tee color=blue fontcolor=blue penwidth=0.08579999999999999]
+	bit_1 -> md_2 [label=-4.3499 arrowhead=tee color=blue fontcolor=blue penwidth=1.30497]
+	bit_1 -> std_2 [label=1.0101 arrowhead=tee color=black fontcolor=black penwidth=0.30303]
+	bit_2 -> std_0 [label=2.1304 arrowhead=tee color=black fontcolor=black penwidth=0.6391199999999999]
+	bit_2 -> std_1 [label=10.0 arrowhead=tee color=black fontcolor=black penwidth=3.0]
+	bit_2 -> md_2 [label=-6.3709 arrowhead=tee color=blue fontcolor=blue penwidth=1.91127]
+	bit_2 -> std_2 [label=-1.0593 arrowhead=tee color=blue fontcolor=blue penwidth=0.31778999999999996]
+	bit_3 -> md_1 [label=-2.8323 arrowhead=tee color=blue fontcolor=blue penwidth=0.8496900000000001]
+	bit_3 -> md_2 [label=9.0912 arrowhead=tee color=black fontcolor=black penwidth=2.72736]
+	bit_3 -> std_2 [label=8.9474 arrowhead=tee color=black fontcolor=black penwidth=2.68422]
+	bit_4 -> md_0 [label=6.885 arrowhead=tee color=black fontcolor=black penwidth=2.0655]
+	bit_4 -> std_0 [label=-0.8281 arrowhead=tee color=blue fontcolor=blue penwidth=0.24842999999999998]
+	bit_4 -> md_1 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	bit_4 -> std_1 [label=3.4113 arrowhead=tee color=black fontcolor=black penwidth=1.02339]
+	bit_4 -> md_2 [label=-5.6837 arrowhead=tee color=blue fontcolor=blue penwidth=1.70511]
+	bit_4 -> std_2 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	md_0 -> md_0 [label=3.6233 arrowhead=box color=red fontcolor=red penwidth=1.08699]
+	md_0 -> std_0 [label=-0.1145 arrowhead=box color=purple fontcolor=purple penwidth=0.034350000000000006]
+	md_0 -> md_1 [label=0.6093 arrowhead=box color=red fontcolor=red penwidth=0.18278999999999998]
+	md_0 -> std_1 [label=4.1194 arrowhead=box color=red fontcolor=red penwidth=1.23582]
+	md_0 -> md_2 [label=10.0 arrowhead=box color=red fontcolor=red penwidth=3.0]
+	md_0 -> std_2 [label=8.9061 arrowhead=box color=red fontcolor=red penwidth=2.67183]
+	std_0 -> std_0 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	std_0 -> md_1 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	std_0 -> std_1 [label=10.0 arrowhead=tee color=black fontcolor=black penwidth=3.0]
+	std_0 -> std_2 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	md_1 -> md_0 [label=10.0 arrowhead=box color=red fontcolor=red penwidth=3.0]
+	md_1 -> std_0 [label=-2.13 arrowhead=box color=purple fontcolor=purple penwidth=0.639]
+	md_1 -> md_1 [label=-5.5809 arrowhead=box color=purple fontcolor=purple penwidth=1.67427]
+	md_1 -> std_1 [label=0.2144 arrowhead=box color=red fontcolor=red penwidth=0.06432]
+	md_1 -> md_2 [label=10.0 arrowhead=box color=red fontcolor=red penwidth=3.0]
+	md_1 -> std_2 [label=-1.3102 arrowhead=box color=purple fontcolor=purple penwidth=0.39306]
+	std_1 -> md_0 [label=3.4556 arrowhead=tee color=black fontcolor=black penwidth=1.03668]
+	std_1 -> std_0 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	std_1 -> md_1 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	std_1 -> std_2 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	md_2 -> md_0 [label=-5.7936 arrowhead=box color=purple fontcolor=purple penwidth=1.73808]
+	md_2 -> std_0 [label=-10.0 arrowhead=box color=purple fontcolor=purple penwidth=3.0]
+	md_2 -> md_1 [label=0.3759 arrowhead=box color=red fontcolor=red penwidth=0.11277]
+	md_2 -> std_1 [label=5.4285 arrowhead=box color=red fontcolor=red penwidth=1.62855]
+	md_2 -> md_2 [label=-0.3274 arrowhead=box color=purple fontcolor=purple penwidth=0.09822]
+	md_2 -> std_2 [label=1.723 arrowhead=box color=red fontcolor=red penwidth=0.5169]
+	std_2 -> md_0 [label=6.455 arrowhead=tee color=black fontcolor=black penwidth=1.9365]
+	std_2 -> std_0 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+	std_2 -> md_1 [label=-10.0 arrowhead=tee color=blue fontcolor=blue penwidth=3.0]
+}

@@ -3,23 +3,39 @@ digraph {
 	node [shape=circle style=filled]
 	subgraph input {
 		rank=same
-		bias [label=bias fillcolor="#FFFFFF" shape=circle]
-		choice [label=c_p fillcolor="#FFFFFF" shape=circle]
-		bit_0 [label=bit_0 fillcolor="#FFFFFF" shape=circle]
-		bit_1 [label=bit_1 fillcolor="#FFFFFF" shape=circle]
-		bit_2 [label=bit_2 fillcolor="#FFFFFF" shape=circle]
-		bit_3 [label=bit_3 fillcolor="#FFFFFF" shape=circle]
-		bit_4 [label=bit_4 fillcolor="#FFFFFF" shape=circle]
+		bias [label="bias
+0.96" fillcolor="#FFFFFF" shape=circle]
+		choice [label="c_p
+0.00" fillcolor="#FFFFFF" shape=circle]
+		bit_0 [label="bit_0
+0.90" fillcolor="#FFFFFF" shape=circle]
+		bit_1 [label="bit_1
+0.12" fillcolor="#FFFFFF" shape=circle]
+		bit_2 [label="bit_2
+0.00" fillcolor="#FFFFFF" shape=circle]
+		bit_3 [label="bit_3
+0.00" fillcolor="#FFFFFF" shape=circle]
+		bit_4 [label="bit_4
+0.00" fillcolor="#FFFFFF" shape=circle]
 	{rank=same; bias; choice; bit_0}
 	}
 	subgraph nuron {
 		rank=A
-		md_0 [label=md_0 fillcolor="#00FFFF" shape=circle]
-		std_0 [label=std_0 fillcolor="#FFFFFF" shape=circle]
-		md_1 [label=md_1 fillcolor="#00FFFF" shape=circle]
-		std_1 [label=std_1 fillcolor="#FFFFFF" shape=circle]
-		md_2 [label=md_2 fillcolor="#00FFFF" shape=circle]
-		std_2 [label=std_2 fillcolor="#FFFFFF" shape=circle]
+		md_0 [label="md_0
+0.9930419057220805" fillcolor="#00FFFF" shape=circle]
+		std_0 [label="std_0
+0.9820454498734794
+" fillcolor="#FFFFFF" shape=circle]
+		md_1 [label="md_1
+1.000089373562844" fillcolor="#00FFFF" shape=circle]
+		std_1 [label="std_1
+-0.9914794853093588
+" fillcolor="#FFFFFF" shape=circle]
+		md_2 [label="md_2
+-0.9998661984318368" fillcolor="#00FFFF" shape=circle]
+		std_2 [label="std_2
+-0.1511881903164368
+" fillcolor="#FFFFFF" shape=circle]
 	}
 	bias -> md_0 [label=2.9573 arrowhead=tee color=black fontcolor=black penwidth=0.88719]
 	bias -> std_0 [label=0.1423 arrowhead=tee color=black fontcolor=black penwidth=0.042690000000000006]
